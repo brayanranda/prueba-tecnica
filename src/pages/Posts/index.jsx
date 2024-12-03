@@ -8,21 +8,34 @@ import { Toaster } from 'sonner'
 
 export default function Post() {
 
-    const { modal, setModal, dataPost } = usePost()
-
-    useEffect(() => {
-        console.log(dataPost);
-        
-    }, []);
+    const {
+        modal, setModal, dataPost, onSubmit, eliminarPost, closeModal,
+        dataUsers, isEdit, setIsEdit, defaultValues, setDefaultValues
+    } = usePost()
 
     return (
         <main className='md:flex'>
             <Toaster position="bottom-right" />
             <Menu />
             <section className='w-full md:w-10/12 py-10 relative'>
-                { modal && <PostForm setModal={setModal} /> }
+                {
+                    modal &&
+                        <PostForm
+                            onSubmit={onSubmit}
+                            users={dataUsers}
+                            isEdit={isEdit}
+                            defaultValues={defaultValues}
+                            closeModal={closeModal}
+                        />
+                }
                 <PostTitle setModal={setModal} />
-                {/* <PostList dataPost={dataPost} /> */}
+                <PostList
+                    dataPost={dataPost}
+                    eliminarPost={eliminarPost}
+                    setIsEdit={setIsEdit}
+                    setModal={setModal}
+                    setDefaultValues={setDefaultValues}
+                />
             </section>
         </main>
     )
