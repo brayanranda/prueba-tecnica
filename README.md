@@ -10,7 +10,7 @@ El proyecto está desarrollado con **React**, utilizando herramientas modernas p
 
 Puedes acceder a la versión desplegada de la aplicación a través del siguiente enlace:
 
-[Acceder al Proyecto](<inserte aquí la URL del proyecto desplegado>)
+[Acceder al Proyecto](https://prueba-tecnica-lemon-pi.vercel.app/)
 
 ## Tecnologías Utilizadas
 

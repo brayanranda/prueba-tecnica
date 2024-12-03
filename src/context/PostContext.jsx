@@ -49,7 +49,7 @@ const PostProvider = ({ children }) => {
             const res = await deleteRequest(url_eliminar);
             await getPosts()
             
-            toast.success(`Se elimino el post con el ${res.id}`);
+            toast.success(`Se elimino el post`);
           } catch (error) {
             toast.error(error.message);
         }

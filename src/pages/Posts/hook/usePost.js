@@ -18,10 +18,6 @@ export const usePost = () => {
     const [defaultValues, setDefaultValues] = useState(initialState);
 
     const onSubmit = async (data) => {
-        console.log(data);
-        console.log("isEdit", isEdit);
-        
-        
         isEdit ? editarPost(data, data?.id) : guardarPost(data)
     };
 
