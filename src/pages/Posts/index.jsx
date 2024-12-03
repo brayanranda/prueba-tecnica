@@ -12,7 +12,7 @@ export default function Post() {
         modal, setModal, dataPost, onSubmit, eliminarPost, closeModal,
         dataUsers, isEdit, setIsEdit, defaultValues, setDefaultValues
     } = usePost()
-
+    
     return (
         <main className='md:flex'>
             <Toaster position="bottom-right" />
@@ -35,6 +35,7 @@ export default function Post() {
                     setIsEdit={setIsEdit}
                     setModal={setModal}
                     setDefaultValues={setDefaultValues}
+
                 />
             </section>
         </main>

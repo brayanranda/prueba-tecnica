@@ -6,12 +6,11 @@ import columns from '../util/utilPost';
 export default function PostList({ dataPost, eliminarPost, setDefaultValues, setIsEdit, setModal }) {
 
   const [modalEliminar, setModalEliminar] = useState(false);
+  const [idEliminar, setIdEliminar] = useState("");
 
-  const handleDelete = (idPost) => {
-    console.log('idPost', idPost);
-    
+  const handleDelete = async (data) => {
+    setIdEliminar(data?.id)
     setModalEliminar(true);
-    eliminarPost(idPost);
   }
 
   const handleAction = (dataPost) => {
@@ -26,8 +25,9 @@ export default function PostList({ dataPost, eliminarPost, setDefaultValues, set
       {
         modalEliminar &&
           <PostModalEliminar
-            handleEliminar={handleDelete}
+            handleEliminar={eliminarPost}
             setModal={setModalEliminar}
+            idEliminar={idEliminar}
           />
       }
         <DataTable columns={columns(handleAction, handleDelete)} data={dataPost} />

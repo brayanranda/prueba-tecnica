@@ -3,7 +3,7 @@ import GenericModal from '../../../components/GenericModal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-export default function PostModalEliminar({ handleEliminar, setModal }) {
+export default function PostModalEliminar({ handleEliminar, setModal, idEliminar }) {
 
   return (
     <GenericModal
@@ -13,7 +13,7 @@ export default function PostModalEliminar({ handleEliminar, setModal }) {
         <p className='py-5'>¿Esta seguro de Eliminar este Post?</p>
         <button
             className="rounded-full bg-cyan text-white font-bold  py-2 px-4 hover:scale-105 duration-300 bg-red-500 hover:bg-red-600"
-            onClick={() => { handleEliminar() }}
+            onClick={() => { handleEliminar(idEliminar) }}
         >
             <FontAwesomeIcon icon={faTrash} className='mr-2' />
             Eliminar
