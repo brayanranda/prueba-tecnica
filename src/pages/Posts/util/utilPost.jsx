@@ -13,12 +13,12 @@ export default function columns(handleEdit, handleDelete) {
       header: "User",
     },
     {
-      accessorKey: "body",
-      header: "Body",
-    },
-    {
       accessorKey: "title",
       header: "Title",
+    },
+    {
+      accessorKey: "body",
+      header: "Body",
     },
     {
       header: "Actions",
