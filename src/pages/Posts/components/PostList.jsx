@@ -3,14 +3,14 @@ import { DataTable } from '../../../components/DataTable';
 import PostModalEliminar from './PostModalEliminar';
 import columns from '../util/utilPost';
 
-
 export default function PostList({ dataPost, eliminarPost }) {
 
   const [modalEliminar, setModalEliminar] = useState(false);
- 
 
   const handleDelete = (idPost) => {
-    setModalEliminar(true)
+    console.log('idPost', idPost);
+    
+    setModalEliminar(true);
     eliminarPost(idPost);
   }
 
@@ -27,7 +27,7 @@ export default function PostList({ dataPost, eliminarPost }) {
             setModal={setModalEliminar}
           />
       }
-        <DataTable columns={columns(handleAction, handleAction)} data={dataPost} />
+        <DataTable columns={columns(handleAction, handleDelete)} data={dataPost} />
     </article>
   )
 }

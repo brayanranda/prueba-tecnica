@@ -9,6 +9,8 @@ export const usePost = () => {
     const [modal, setModal] = useState(false);
 
     const onSubmit = async (data) => {
+        console.log("holamundo", data);
+        
         guardarPost(data)
     };    
 

@@ -8,11 +8,7 @@ import { Toaster } from 'sonner'
 
 export default function Post() {
 
-    const { modal, setModal, dataPost, updatedPosts, onSubmit } = usePost()
-
-    useEffect(() => {
-        console.log(dataPost);
-    }, [dataPost]);
+    const { modal, setModal, dataPost, updatedPosts, onSubmit, eliminarPost } = usePost()
 
     return (
         <main className='md:flex'>
@@ -21,7 +17,7 @@ export default function Post() {
             <section className='w-full md:w-10/12 py-10 relative'>
                 { modal && <PostForm setModal={setModal} onSubmit={onSubmit} /> }
                 <PostTitle setModal={setModal} />
-                <PostList dataPost={updatedPosts} />
+                <PostList dataPost={updatedPosts} eliminarPost ={eliminarPost} />
             </section>
         </main>
     )

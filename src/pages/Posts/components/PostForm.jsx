@@ -3,13 +3,9 @@ import GenericModal from '../../../components/GenericModal';
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from "@/components/ui/button";
 
 export default function PostForm({ setModal, onSubmit }) {
@@ -19,16 +15,21 @@ export default function PostForm({ setModal, onSubmit }) {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const closeModal = () => {
+    setModal(false);
+    reset()
+  }
 
   return (
     <Fragment>
       <GenericModal
         title="Registrar un post"
-        titleBtn="Registrar"
-        close={() => setModal(false)}
-      >
-        <form onSubmit={handleSubmit(onSubmit)} className='py-5 space-y-3 flex flex-col'>
+        close={closeModal}
+      > 
+        <form onSubmit={handleSubmit((data)=> {onSubmit(data); closeModal()})} className='py-5 space-y-3 flex flex-col'>
           <label>
             <p>User</p>
             <Controller
@@ -78,6 +79,14 @@ export default function PostForm({ setModal, onSubmit }) {
             />
             {errors.body && <span className='text-sm text-red-700'>El body es requerido</span>}
           </label>
+
+          <Button
+              className="rounded-full bg-cyan text-white font-bold  py-2 px-4 hover:scale-105 duration-300 bg-sky-500 hover:bg-sky-600"
+              type="submit"
+          >
+              <FontAwesomeIcon icon={faSave} className='mr-2' />
+              Registrar
+          </Button>
         </form>
       </GenericModal>
     </Fragment>
