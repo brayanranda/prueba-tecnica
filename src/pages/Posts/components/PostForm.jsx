@@ -1,40 +1,84 @@
 import React, { Fragment } from 'react'
 import GenericModal from '../../../components/GenericModal';
+import { Controller, useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
-export default function PostForm({ setModal }) {
-
-  const handleSave = () => { 
-    console.log("handleSave");
-  }
+export default function PostForm({ setModal, onSubmit }) {
+  
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <Fragment>
       <GenericModal
         title="Registrar un post"
         titleBtn="Registrar"
-        method={handleSave}
         close={() => setModal(false)}
       >
-        <div className='py-5 space-y-3 flex flex-col'>
+        <form onSubmit={handleSubmit(onSubmit)} className='py-5 space-y-3 flex flex-col'>
           <label>
             <p>User</p>
-            <select className='w-full bg-gray-100 py-2 px-4 rounded-md' name="" id="">
-              <option value="">User 1</option>
-              <option value="">User 2</option>
-              <option value="">User 3</option>
-            </select>
+            <Controller
+              name="userId"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <Select onValueChange={field.onChange} value={field.value} className="w-full bg-gray-100 py-2 px-4 rounded-md">
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an user" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="1">User 1</SelectItem>
+                    <SelectItem value="2">User 2</SelectItem>
+                    <SelectItem value="3">User 3</SelectItem>
+                    <SelectItem value="4">User 4</SelectItem>
+                    <SelectItem value="5">User 5</SelectItem>
+                    <SelectItem value="6">User 6</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          {errors.userId && <span className='text-sm text-red-700'>El Usuario es requerido</span>}
           </label>
 
           <label>
             <p>Title</p>
-            <textarea className='bg-gray-100 py-2 px-4 rounded-md w-full resize-none' name="" id=""></textarea>
+            <Input
+              {...register("title", {
+                required: true,
+              })}
+              type="text"
+              id="title"
+              className="bg-gray-100 py-2 px-4 rounded-md w-full resize-none"
+            />
+            {errors.title && <span className='text-sm text-red-700'>El titulo es requerido</span>}
           </label>
 
           <label>
             <p>Body</p>
-            <textarea className='bg-gray-100 py-2 px-4 rounded-md w-full resize-none h-36' name="" id=""></textarea>
+            <Textarea
+              {...register("body", {
+                required: true,
+              })}
+              id="body"
+              className="bg-gray-100 py-2 px-4 rounded-md w-full resize-none h-36"
+            />
+            {errors.body && <span className='text-sm text-red-700'>El body es requerido</span>}
           </label>
-        </div>
+        </form>
       </GenericModal>
     </Fragment>
   )

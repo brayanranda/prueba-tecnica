@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Menu from '../../components/Menu'
 import { usePost } from './hook/usePost'
 import PostForm from './components/PostForm'
@@ -8,21 +8,20 @@ import { Toaster } from 'sonner'
 
 export default function Post() {
 
-    const { modal, setModal, dataPost } = usePost()
+    const { modal, setModal, dataPost, updatedPosts, onSubmit } = usePost()
 
     useEffect(() => {
         console.log(dataPost);
-        
-    }, []);
+    }, [dataPost]);
 
     return (
         <main className='md:flex'>
             <Toaster position="bottom-right" />
             <Menu />
             <section className='w-full md:w-10/12 py-10 relative'>
-                { modal && <PostForm setModal={setModal} /> }
+                { modal && <PostForm setModal={setModal} onSubmit={onSubmit} /> }
                 <PostTitle setModal={setModal} />
-                {/* <PostList dataPost={dataPost} /> */}
+                <PostList dataPost={updatedPosts} />
             </section>
         </main>
     )

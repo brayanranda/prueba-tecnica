@@ -1,44 +1,33 @@
-import React from 'react'
-import { faPencil } from '@fortawesome/free-solid-svg-icons'
-import { Button } from "@/components/ui/button";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
 import { DataTable } from '../../../components/DataTable';
+import PostModalEliminar from './PostModalEliminar';
+import columns from '../util/utilPost';
 
 
-export default function PostList({ dataPost }) {
+export default function PostList({ dataPost, eliminarPost }) {
 
-  const columns = [
-    {
-      accessorKey: "status",
-      header: "Status",
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
-    },
-    {
-      accessorKey: "amount",
-      header: "Amount",
-    },
-    {
-      id: "actions",
-      cell: ({ row }) => (
-        <Button onClick={() => handleAction(row.original)} size="sm">
-          <FontAwesomeIcon icon={faPencil} />
-          Editar
-        </Button>
-      ),
-    },
-  ];
-  
-  function handleAction(dataPost) {
+  const [modalEliminar, setModalEliminar] = useState(false);
+ 
+
+  const handleDelete = (idPost) => {
+    setModalEliminar(true)
+    eliminarPost(idPost);
+  }
+
+  const handleAction = (dataPost) => {
     console.log(dataPost);
   }
 
   return (
-    <div>
-        <DataTable columns={columns} data={dataPost} />
-        PostList
-    </div>
+    <article className='w-11/12 mx-auto mt-8'>
+      {
+        modalEliminar &&
+          <PostModalEliminar
+            handleEliminar={handleDelete}
+            setModal={setModalEliminar}
+          />
+      }
+        <DataTable columns={columns(handleAction, handleAction)} data={dataPost} />
+    </article>
   )
 }

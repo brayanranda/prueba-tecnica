@@ -2,7 +2,7 @@ import React from 'react'
 import { faSave, faX } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function GenericModal({ title, titleBtn, method, close, children }) {
+export default function GenericModal({ title, titleBtn, method = () => {}, close, children, buttonType = "submit" }) {
 
     const colors = {
         Registrar: "bg-sky-500 hover:bg-sky-600",
@@ -18,6 +18,7 @@ export default function GenericModal({ title, titleBtn, method, close, children 
                 <button
                     className={`rounded-full bg-cyan text-white font-bold  py-2 px-4 hover:scale-105 duration-300 ${colors[titleBtn]}`}
                     onClick={method}
+                    type={buttonType}
                 >
                     <FontAwesomeIcon icon={faSave} className='mr-2' />
                     {titleBtn}

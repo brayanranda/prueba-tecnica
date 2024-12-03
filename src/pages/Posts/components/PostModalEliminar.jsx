@@ -9,6 +9,7 @@ export default function PostModalEliminar({ handleEliminar, setModal }) {
         titleBtn="Eliminar"
         method={handleEliminar}
         close={() => setModal(false)}
+        buttonType="button"
     >
         <p>¿Esta seguro de Eliminar este Post?</p>
     </GenericModal>

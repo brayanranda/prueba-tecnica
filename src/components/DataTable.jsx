@@ -8,6 +8,11 @@ export function DataTable({ columns, data }) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+        pagination: {
+          pageSize: 8,
+        },
+    },
   });
 
     return (
@@ -16,7 +21,7 @@ export function DataTable({ columns, data }) {
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="bg-gray-950">
+                            <TableRow key={headerGroup.id} className="bg-zinc-900 hover:bg-zinc-800 border-none">
                                 {headerGroup.headers.map((header) => {
                                     return (
                                         <TableHead key={header.id} className="font-bold text-white">
@@ -38,9 +43,10 @@ export function DataTable({ columns, data }) {
                                 <TableRow
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
+                                    className={"hover:bg-zinc-800 border-none"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className="p-6">
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
