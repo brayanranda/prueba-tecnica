@@ -13,7 +13,7 @@ export default function PostModalEliminar({ handleEliminar, setModal, idEliminar
         <p className='py-5'>¿Esta seguro de Eliminar este Post?</p>
         <button
             className="rounded-full bg-cyan text-white font-bold  py-2 px-4 hover:scale-105 duration-300 bg-red-500 hover:bg-red-600"
-            onClick={() => { handleEliminar(idEliminar) }}
+            onClick={() => { handleEliminar(idEliminar); setModal(false) }}
         >
             <FontAwesomeIcon icon={faTrash} className='mr-2' />
             Eliminar
