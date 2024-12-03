@@ -3,7 +3,7 @@ import { DataTable } from '../../../components/DataTable';
 import PostModalEliminar from './PostModalEliminar';
 import columns from '../util/utilPost';
 
-export default function PostList({ dataPost, eliminarPost }) {
+export default function PostList({ dataPost, eliminarPost, setDefaultValues, setIsEdit, setModal }) {
 
   const [modalEliminar, setModalEliminar] = useState(false);
 
@@ -15,7 +15,10 @@ export default function PostList({ dataPost, eliminarPost }) {
   }
 
   const handleAction = (dataPost) => {
-    console.log(dataPost);
+    setIsEdit(true)
+    setModal(true)
+    
+    setDefaultValues(dataPost)
   }
 
   return (

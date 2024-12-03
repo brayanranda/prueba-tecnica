@@ -60,7 +60,7 @@ const PostProvider = ({ children }) => {
     }, []);
     
     const data = {
-      getPosts, dataPost, guardarPost, eliminarPost
+      getPosts, dataPost, guardarPost, eliminarPost, editarPost
     }
 
     return (

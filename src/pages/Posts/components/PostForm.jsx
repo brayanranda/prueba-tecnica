@@ -8,7 +8,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from "@/components/ui/button";
 
-export default function PostForm({ setModal, onSubmit }) {
+export default function PostForm({ onSubmit, users, isEdit = false, defaultValues = {}, closeModal }) {
   
   const {
     register,
@@ -16,20 +16,20 @@ export default function PostForm({ setModal, onSubmit }) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
-
-  const closeModal = () => {
-    setModal(false);
-    reset()
-  }
+  } = useForm({
+    defaultValues:{
+      ...defaultValues,
+      userId: `${defaultValues.userId}`
+    }
+  });
 
   return (
     <Fragment>
       <GenericModal
-        title="Registrar un post"
-        close={closeModal}
+        title={isEdit ? "Editar un post": "Registrar un post"}
+        close={() => { closeModal(); reset() }}
       > 
-        <form onSubmit={handleSubmit((data)=> {onSubmit(data); closeModal()})} className='py-5 space-y-3 flex flex-col'>
+        <form onSubmit={handleSubmit((data)=> {onSubmit(data); closeModal(); reset()})} className='py-5 space-y-3 flex flex-col'>
           <label>
             <p>User</p>
             <Controller
@@ -42,12 +42,10 @@ export default function PostForm({ setModal, onSubmit }) {
                     <SelectValue placeholder="Select an user" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="1">User 1</SelectItem>
-                    <SelectItem value="2">User 2</SelectItem>
-                    <SelectItem value="3">User 3</SelectItem>
-                    <SelectItem value="4">User 4</SelectItem>
-                    <SelectItem value="5">User 5</SelectItem>
-                    <SelectItem value="6">User 6</SelectItem>
+                  {
+                      users && users.length > 0 &&
+                        users.map((user, index) => <SelectItem key={index} value={`${user.id}`}>{user.name}</SelectItem>)
+                    }
                   </SelectContent>
                 </Select>
               )}
@@ -85,7 +83,7 @@ export default function PostForm({ setModal, onSubmit }) {
               type="submit"
           >
               <FontAwesomeIcon icon={faSave} className='mr-2' />
-              Registrar
+              {isEdit ? "Guardar" : "Registrar"}
           </Button>
         </form>
       </GenericModal>

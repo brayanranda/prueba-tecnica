@@ -3,39 +3,34 @@ import PostContext from '../../../context/PostContext';
 import UserContext from '../../../context/UserContext';
 
 export const usePost = () => {
-    const { dataPost, guardarPost, eliminarPost } = useContext(PostContext);
+    const { dataPost, guardarPost, eliminarPost, editarPost } = useContext(PostContext);
     const { dataUsers } = useContext(UserContext);
+    const [isEdit, setIsEdit] = useState(false);
 
     const [modal, setModal] = useState(false);
 
+    const initialState = {
+        userId: "",
+        title: "",
+        body: "",
+    }
+
+    const [defaultValues, setDefaultValues] = useState(initialState);
+
     const onSubmit = async (data) => {
-        console.log("holamundo", data);
+        console.log(data);
+        console.log("isEdit", isEdit);
         
-        guardarPost(data)
-    };    
+        
+        isEdit ? editarPost(data, data?.id) : guardarPost(data)
+    };
 
-    /**
-     * Crea un mapa que asocia cada userId con su nombre.
-     * @param {Array} dataUsers - Lista de usuarios con propiedades id y name.
-     * @returns {Object} - Un objeto donde cada clave es un userId y su valor es el nombre del usuario.
-   */
-    const userIdToNameMap = dataUsers.reduce((acc, user) => {
-        acc[user.id] = user.name;
-        return acc;
-    }, {});
-
-    /**
-     * Reemplaza el userId de cada post con el nombre del usuario correspondiente.
-     * @param {Array} dataPost - Lista de objetos de posts donde cada post tiene un userId.
-     * @param {Object} userIdToNameMap - Mapa que asocia cada userId con un nombre de usuario.
-     * @returns {Array} - Nueva lista de posts con userId reemplazado por el nombre del usuario.
-    */
-    const updatedPosts = dataPost.map(post => ({
-        ...post,
-        userId: userIdToNameMap[post.userId]
-    }));
+    const closeModal = () => {
+        setModal(false);
+        setDefaultValues(initialState)
+    }
 
     return {
-        modal, setModal, dataPost, updatedPosts, onSubmit, eliminarPost
+        modal, setModal, dataPost, onSubmit, eliminarPost, dataUsers, isEdit, setIsEdit, defaultValues, setDefaultValues, closeModal
     }
 }
